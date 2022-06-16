@@ -1,0 +1,11 @@
+{
+  "name": "protobufjs",
+  "version": "6.8.0",
+  "dependencies": {
+    "long": {
+      "version": "3.2.0",
+      "from": "long@3.2.0",
+      "resolved": "https://registry.npmjs.org/long/-/long-3.2.0.tgz"
+    }
+  }
+}
