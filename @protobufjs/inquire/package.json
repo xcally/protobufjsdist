@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@protobufjs/inquire@1.1.0",
+        "scope": "@protobufjs",
+        "escapedName": "@protobufjs%2finquire",
+        "name": "@protobufjs/inquire",
+        "rawSpec": "1.1.0",
+        "spec": "1.1.0",
+        "type": "version"
+      },
+      "/home/vito/Development/MOTION_V2/protobuf-680-npm\\protobufjs\\-\\/protobufdist/package"
+    ]
+  ],
+  "_from": "@protobufjs/inquire@1.1.0",
+  "_id": "@protobufjs/inquire@1.1.0",
+  "_inCache": true,
+  "_location": "/@protobufjs/inquire",
+  "_nodeVersion": "6.9.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/inquire-1.1.0.tgz_1485367981156_0.06349746254272759"
+  },
+  "_npmUser": {
+    "name": "dcode",
+    "email": "dcode+npm@dcode.io"
+  },
+  "_npmVersion": "4.0.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@protobufjs/inquire@1.1.0",
+    "scope": "@protobufjs",
+    "escapedName": "@protobufjs%2finquire",
+    "name": "@protobufjs/inquire",
+    "rawSpec": "1.1.0",
+    "spec": "1.1.0",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/",
+    "/@protobufjs/fetch"
+  ],
+  "_resolved": "https://registry.npmjs.org/@protobufjs/inquire/-/inquire-1.1.0.tgz",
+  "_shasum": "ff200e3e7cf2429e2dcafc1140828e8cc638f089",
+  "_shrinkwrap": null,
+  "_spec": "@protobufjs/inquire@1.1.0",
+  "_where": "/home/vito/Development/MOTION_V2/protobuf-680-npm\\protobufjs\\-\\/protobufdist/package",
+  "author": {
+    "name": "Daniel Wirtz",
+    "email": "dcode+protobufjs@dcode.io"
+  },
+  "bugs": {
+    "url": "https://github.com/dcodeIO/protobuf.js/issues"
+  },
+  "dependencies": {},
+  "description": "Requires a module only if available and hides the require call from bundlers.",
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "tape": "^4.6.3"
+  },
+  "dist": {
+    "shasum": "ff200e3e7cf2429e2dcafc1140828e8cc638f089",
+    "tarball": "https://registry.npmjs.org/@protobufjs/inquire/-/inquire-1.1.0.tgz",
+    "integrity": "sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==",
+    "signatures": [
+      {
+        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+        "sig": "MEYCIQC9WMeus+3WU8hNEQFY4hT2kzhU6llQmZhIQRe6MZk6TAIhAPiwwJJ2wb3C2kHSNGWRfNbkwyQv1TszbmbpPUmnpNdq"
+      }
+    ]
+  },
+  "homepage": "https://github.com/dcodeIO/protobuf.js#readme",
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "dcode",
+      "email": "dcode+npm@dcode.io"
+    },
+    {
+      "name": "protobufjs",
+      "email": "dcode+protobufjs@dcode.io"
+    }
+  ],
+  "name": "@protobufjs/inquire",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcodeIO/protobuf.js.git"
+  },
+  "scripts": {
+    "coverage": "istanbul cover node_modules/tape/bin/tape tests/*.js",
+    "test": "tape tests/*.js"
+  },
+  "types": "index.d.ts",
+  "version": "1.1.0"
+}

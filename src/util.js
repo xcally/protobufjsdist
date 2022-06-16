@@ -4,16 +4,16 @@
  * Various utility functions.
  * @namespace
  */
-var util = module.exports = require("./util/minimal");
+var util = (module.exports = require("./util/minimal"));
 
 var roots = require("./roots");
 
 var Type, // cyclic
-    Enum;
+  Enum;
 
-util.codegen = require("@protobufjs/codegen");
-util.fetch   = require("@protobufjs/fetch");
-util.path    = require("@protobufjs/path");
+util.codegen = require("../@protobufjs/codegen");
+util.fetch = require("../@protobufjs/fetch");
+util.path = require("../@protobufjs/path");
 
 /**
  * Node's fs module if available.
@@ -27,15 +27,14 @@ util.fs = util.inquire("fs");
  * @returns {Array.<*>} Converted array
  */
 util.toArray = function toArray(object) {
-    if (object) {
-        var keys  = Object.keys(object),
-            array = new Array(keys.length),
-            index = 0;
-        while (index < keys.length)
-            array[index] = object[keys[index++]];
-        return array;
-    }
-    return [];
+  if (object) {
+    var keys = Object.keys(object),
+      array = new Array(keys.length),
+      index = 0;
+    while (index < keys.length) array[index] = object[keys[index++]];
+    return array;
+  }
+  return [];
 };
 
 /**
@@ -44,19 +43,18 @@ util.toArray = function toArray(object) {
  * @returns {Object.<string,*>} Converted object
  */
 util.toObject = function toObject(array) {
-    var object = {},
-        index  = 0;
-    while (index < array.length) {
-        var key = array[index++],
-            val = array[index++];
-        if (val !== undefined)
-            object[key] = val;
-    }
-    return object;
+  var object = {},
+    index = 0;
+  while (index < array.length) {
+    var key = array[index++],
+      val = array[index++];
+    if (val !== undefined) object[key] = val;
+  }
+  return object;
 };
 
 var safePropBackslashRe = /\\/g,
-    safePropQuoteRe     = /"/g;
+  safePropQuoteRe = /"/g;
 
 /**
  * Returns a safe property accessor for the specified properly name.
@@ -64,7 +62,11 @@ var safePropBackslashRe = /\\/g,
  * @returns {string} Safe accessor
  */
 util.safeProp = function safeProp(prop) {
-    return "[\"" + prop.replace(safePropBackslashRe, "\\\\").replace(safePropQuoteRe, "\\\"") + "\"]";
+  return (
+    '["' +
+    prop.replace(safePropBackslashRe, "\\\\").replace(safePropQuoteRe, '\\"') +
+    '"]'
+  );
 };
 
 /**
@@ -73,7 +75,7 @@ util.safeProp = function safeProp(prop) {
  * @returns {string} Converted string
  */
 util.ucFirst = function ucFirst(str) {
-    return str.charAt(0).toUpperCase() + str.substring(1);
+  return str.charAt(0).toUpperCase() + str.substring(1);
 };
 
 var camelCaseRe = /_([a-z])/g;
@@ -84,9 +86,12 @@ var camelCaseRe = /_([a-z])/g;
  * @returns {string} Converted string
  */
 util.camelCase = function camelCase(str) {
-    return str.substring(0, 1)
-         + str.substring(1)
-               .replace(camelCaseRe, function($0, $1) { return $1.toUpperCase(); });
+  return (
+    str.substring(0, 1) +
+    str.substring(1).replace(camelCaseRe, function ($0, $1) {
+      return $1.toUpperCase();
+    })
+  );
 };
 
 /**
@@ -96,7 +101,7 @@ util.camelCase = function camelCase(str) {
  * @returns {number} Comparison value
  */
 util.compareFieldsById = function compareFieldsById(a, b) {
-    return a.id - b.id;
+  return a.id - b.id;
 };
 
 /**
@@ -108,27 +113,28 @@ util.compareFieldsById = function compareFieldsById(a, b) {
  * @property {Root} root Decorators root
  */
 util.decorateType = function decorateType(ctor, typeName) {
-
-    /* istanbul ignore if */
-    if (ctor.$type) {
-        if (typeName && ctor.$type.name !== typeName) {
-            util.decorateRoot.remove(ctor.$type);
-            ctor.$type.name = typeName;
-            util.decorateRoot.add(ctor.$type);
-        }
-        return ctor.$type;
+  /* istanbul ignore if */
+  if (ctor.$type) {
+    if (typeName && ctor.$type.name !== typeName) {
+      util.decorateRoot.remove(ctor.$type);
+      ctor.$type.name = typeName;
+      util.decorateRoot.add(ctor.$type);
     }
+    return ctor.$type;
+  }
 
-    /* istanbul ignore next */
-    if (!Type)
-        Type = require("./type");
+  /* istanbul ignore next */
+  if (!Type) Type = require("./type");
 
-    var type = new Type(typeName || ctor.name);
-    util.decorateRoot.add(type);
-    type.ctor = ctor; // sets up .encode, .decode etc.
-    Object.defineProperty(ctor, "$type", { value: type, enumerable: false });
-    Object.defineProperty(ctor.prototype, "$type", { value: type, enumerable: false });
-    return type;
+  var type = new Type(typeName || ctor.name);
+  util.decorateRoot.add(type);
+  type.ctor = ctor; // sets up .encode, .decode etc.
+  Object.defineProperty(ctor, "$type", { value: type, enumerable: false });
+  Object.defineProperty(ctor.prototype, "$type", {
+    value: type,
+    enumerable: false,
+  });
+  return type;
 };
 
 var decorateEnumIndex = 0;
@@ -139,19 +145,16 @@ var decorateEnumIndex = 0;
  * @returns {Enum} Reflected enum
  */
 util.decorateEnum = function decorateEnum(object) {
+  /* istanbul ignore if */
+  if (object.$type) return object.$type;
 
-    /* istanbul ignore if */
-    if (object.$type)
-        return object.$type;
+  /* istanbul ignore next */
+  if (!Enum) Enum = require("./enum");
 
-    /* istanbul ignore next */
-    if (!Enum)
-        Enum = require("./enum");
-
-    var enm = new Enum("Enum" + decorateEnumIndex++, object);
-    util.decorateRoot.add(enm);
-    Object.defineProperty(object, "$type", { value: enm, enumerable: false });
-    return enm;
+  var enm = new Enum("Enum" + decorateEnumIndex++, object);
+  util.decorateRoot.add(enm);
+  Object.defineProperty(object, "$type", { value: enm, enumerable: false });
+  return enm;
 };
 
 /**
@@ -161,7 +164,9 @@ util.decorateEnum = function decorateEnum(object) {
  * @readonly
  */
 Object.defineProperty(util, "decorateRoot", {
-    get: function() {
-        return roots["decorated"] || (roots["decorated"] = new (require("./root"))());
-    }
+  get: function () {
+    return (
+      roots["decorated"] || (roots["decorated"] = new (require("./root"))())
+    );
+  },
 });

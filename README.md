@@ -1,6 +1,9 @@
 # Warning
 
 This is just the build of protobuf 6.8.0 downloaded from npm. This is the last version which works with Node 6.x. Both dependencies and dev-dependencies of the original package (v6.8.0) are unmaintained, unless you use the latest version, which is recommended. This is intended to be used only with legacy version of Node and npm in legacy projects.
+
+It also includes all of "@protobuf/<packages>" instead of downloading them from npm
+
 Please use a newer version in your package if you can. The original npm package does not install anymore via npm because of a sub-dependency update and the lack of a lockfile.
 
 The following is the original README. All rights and license to the original owner.
